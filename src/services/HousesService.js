@@ -10,6 +10,26 @@ class HousesService {
     AppState.houses = res.data.map(h => new House(h))
     logger.log('[HOUSES IN APPSTATE]', AppState.houses)
   }
+
+  async getHouseById(houseId) {
+    AppState.house = null
+    const res = await api.get(`auth/api/houses/${houseId}`)
+    logger.log(res.data)
+    AppState.house = new House(res.data)
+  }
+
+  async createHouse(houseData) {
+    const res = await api.post(`auth/api/houses`, houseData)
+    logger.log('[THIS IS THE POSTED HOUSE]', res.data)
+    const newHouse = new House(res.data)
+    AppState.houses.push(newHouse)
+    return newHouse
+  }
+
+  async deleteHouse(houseId) {
+    const res = await api.delete(`auth/api/houses/${houseId}`)
+    logger.log('[DELETING HOUSE]', res.data)
+  }
 }
 
 export const housesService = new HousesService()

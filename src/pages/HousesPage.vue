@@ -1,10 +1,17 @@
 <template>
   <div class="container-fluid">
     <section class="row">
+      <div>
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info my-3">Post a House!
+          🏠</button>
+      </div>
       <div v-for="houseFromVFor in houses" :key="houseFromVFor.id" class="col-4">
         <HouseCard :house="houseFromVFor" />
       </div>
     </section>
+    <ModalComponent>
+      <HouseForm />
+    </ModalComponent>
   </div>
 </template>
 
@@ -16,6 +23,8 @@ import Pop from "../utils/Pop.js";
 import { housesService } from "../services/HousesService.js"
 import { AppState } from "../AppState.js";
 import HouseCard from "../components/HouseCard.vue";
+import HouseForm from "../components/HouseForm.vue";
+import ModalComponent from "../components/ModalComponent.vue";
 
 export default {
   setup() {
@@ -36,7 +45,7 @@ export default {
       account: computed(() => AppState.account)
     };
   },
-  components: { HouseCard }
+  components: { HouseCard, ModalComponent, HouseForm }
 }
 </script>
 
